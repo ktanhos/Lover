@@ -23,7 +23,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 90%;
         }
-        h1 { color: #d63384; font-size: 1.5rem; }
+        h1 { color: #d63384; font-size: 1.5rem; line-height: 1.4; }
         .buttons {
             margin-top: 20px;
             display: flex;
@@ -42,13 +42,13 @@
         }
         #yesBtn { background-color: #ff69b4; color: white; z-index: 10; }
         #noBtn { background-color: #6c757d; color: white; position: relative; }
-        .gif_container img { width: 250px; border-radius: 15px; }
+        .gif_container img { width: 250px; border-radius: 15px; min-height: 150px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="gif_container">
-            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Zic3VpbmptZ3FpY3ZlbG55bmZpZ3FidW96Z3FidW96Z3FidW96ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1uPi5TotgrRSI/giphy.gif" alt="Minion Banana">
+            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3BkbW9idGZ3NjVreWswZ29hbmJ6ZWF6ZHZ3emZ2NmQ3eXZuNXFiaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1uPi5TotgrRSI/giphy.gif" alt="Minion Banana">
         </div>
         <h1 id="question">Em có muốn xem chú khủng long của anh không? ❤️</h1>
         <div class="buttons">
@@ -65,10 +65,6 @@
 
         let yesSize = 1;
 
-        // Hiệu ứng nút Không bỏ chạy
-        noBtn.addEventListener('touchstart', moveButton);
-        noBtn.addEventListener('mouseover', moveButton);
-
         function moveButton() {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -80,11 +76,16 @@
             yesBtn.style.transform = `scale(${yesSize})`;
         }
 
-        // Khi bấm nút Có
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+        noBtn.addEventListener('mouseover', moveButton);
+
         yesBtn.addEventListener('click', () => {
             question.innerHTML = "Yeayy! Hẹn gặp tối nay nhé! 😘";
-            // Đổi sang GIF Minion ăn mừng
-            mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y4amZ4bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mP8GermRyzyNi/giphy.gif";
+            // Link GIF ăn mừng ổn định
+            mainGif.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y4amZ4bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mP8GermRyzyNi/giphy.gif";
             document.querySelector('.buttons').style.display = 'none';
         });
     </script>
