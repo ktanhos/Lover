@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRITICAL SYSTEM FAILURE</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            font-size: 1.2rem;
+        }
+        #terminal {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: #00FF00;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .warning { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <span class="cursor"></span>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const lines = [
+            "> Connecting to server 192.168.1.104...",
+            "> Connection established.",
+            "> Starting brute-force attack on user_database...",
+            "> Bypass Firewall... DONE (0.02s)",
+            "> Extracting personal images...",
+            "> [ERROR] Unauthorized access detected!",
+            "> Overriding system protocols...",
+            "> Accessing Heart_Data.zip...",
+            "> Decrypting messages...",
+            "> CAUTION: SYSTEM OVERLOAD",
+            "> FINALIZING DATA TRANSFER...",
+            "---------------------------------------",
+            "CẢNH BÁO: CẬU CHỦ TÂN ĐÃ CHIẾM QUYỀN KIỂM SOÁT!",
+            "Thông điệp: Tối nay đi ăn với mình nhé? ❤️",
+            "---------------------------------------"
+        ];
+
+        let lineIndex = 0;
+
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                const p = document.createElement('p');
+                if (lines[lineIndex].includes("ERROR") || lines[lineIndex].includes("CẢNH BÁO")) {
+                    p.className = "warning";
+                }
+                terminal.appendChild(p);
+                
+                let charIndex = 0;
+                const currentText = lines[lineIndex];
+                
+                const typeChar = setInterval(() => {
+                    if (charIndex < currentText.length) {
+                        p.textContent += currentText[charIndex];
+                        charIndex++;
+                    } else {
+                        clearInterval(typeChar);
+                        lineIndex++;
+                        setTimeout(typeLine, 500); // Khoảng cách giữa các dòng
+                    }
+                }, 30); // Tốc độ gõ chữ
+            }
+        }
+
+        window.onload = typeLine;
+    </script>
+</body>
+</html>
